@@ -24,8 +24,13 @@ theme:
         name: Switch to light mode
   # Add font
   font:
-    text: Padauk
     code: Roboto Mono
+
+  features:
+    # Enable search highlighting
+    - search.highlight
+    # Enable navigation sections
+    - navigation.sections
 
 # Extensions
 markdown_extensions:
