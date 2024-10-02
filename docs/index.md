@@ -1,6 +1,6 @@
-# Obsidian Notes
+# Obsidian Notes - DataPi
 
-Publish your public notes with MkDocs
+Data related notes by DataPi
 
 ## Hello World!
 
