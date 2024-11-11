@@ -1,5 +1,5 @@
 
-# ကျွမ်းကျင်ရမည့် ဘာသာရပ်များ
+# Required Skills for a Data Engineer
 
 Data Engineer တစ်ယောက် ဖြစ်ဖို့အတွက် ဘယ်လို ဘာသာရပ် ၊ အကြောင်းအရာတွေကို နားလည် တက်ကျွမ်းထားဖို့ လိုမလဲဆိုတာကို အကြမ်းဖျဥ်း ဖော်ပြချင်ပါတယ်။
 
@@ -9,7 +9,13 @@ Data Engineer တစ်ယောက်အနေနဲ့ ကြီးမား�
 ယေဘုယျ အသုံးပြုရတဲ့ Tools တွေကတော့ MySQL , Postgresql, .... 
 
 ## Processing Frameworks
+ကြီးမားတဲ့ ဒေတာပမာဏ (Big Data) ကို ကိုင်တွယ်ရာမှာ ကြုံတွေ့ရမယ့် data cleaning/aggregation/clustering စတဲ့ လုပ်ငန်းတွေကို ဆောင်ရွက်ဖို့အတွက် Batch , Streaming processing frameworks တွေကို သိရှိထားဖို့ လိုအပ်ပါတယ်။ 
 
+ယေဘုယျ အသုံးပြုရတဲ့ Tools တွေကတော့ Spark , Hive, Flink နဲ့ Kafka တို့ ဖြစ်ကြပါတယ်။
+
+## Scheduling Frameworks
+Data Workflow တွေကို တည်ဆောက်ရာမှာ အသုံးပြုတဲ့ Scheduling (သို့) Automation frameworks တွေကိုလဲ နားလည်ထားဖို့ လိုအပ်ပါတယ်။
+ဥပမာ - Airflow , Github Action 
 
 
 
