@@ -1,0 +1,5 @@
+- Sqoop
+	- Exercise - Pull the data from MySQL and put it in HDFS
+	- Ingest relational data
+- Kafka
+	- Ingest real-time/streaming data
