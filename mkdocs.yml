@@ -1,7 +1,10 @@
 site_name: DataPi
 site_description: Notes in Burmese about Data Engineering, Architecture, Analysis and Visualization
 site_author: GmGniap
-
+site_url: https://gmgniap.github.io/data-dev/
+nav:
+  - Introduction: index.md
+  - dbt: dbt/index.md
 theme:
   name: "material"
   palette:

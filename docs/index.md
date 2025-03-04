@@ -1,3 +1,7 @@
+---
+title : Introduction
+author : GmGniap
+---
 # Data Engineering Notes - DataPi
 
 Topics covered Data Engineering, Architecture, Analysis and Visualization.
@@ -12,4 +16,7 @@ The `index.md` in the `/docs` folder is the homepage you see here.
 
 The folders in `/docs` appear as the main sections on the navigation bar.
 
-The notes appear as pages within these sections. For example, [[data_engineering]]။ in `Topic 1`
+The notes appear as pages within these sections.
+
+## Table of Contents
+- [Airflow](data_engineering/Airflow.md)
