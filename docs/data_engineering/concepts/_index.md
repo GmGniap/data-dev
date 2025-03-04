@@ -1,0 +1,3 @@
+- [Granularity](./Granularity.md)
+- [Modularity](./Modularity.md)
+- [Star Schema Vs Snow Flake](./star_schema_vs_snowflake_Schema.md)

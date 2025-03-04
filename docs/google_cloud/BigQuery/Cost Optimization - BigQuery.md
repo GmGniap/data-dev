@@ -13,3 +13,21 @@ Cost Optimization လို့ စဥ်းစားရင် Query Processing �
 	- BigQuery Setting ထဲကနေ Cost Control setting ကို ဖွင့်ထားပါ။
 	- ဒေတာအတွက် Partitioning / Clustering နည်းလမ်းများကို မှန်ကန်စွာ အသုံးချပါ။
 	- မိမိ ရဲ့ BigQuery processing cost က USD $XXk (ဒေါ်လာ သောင်း/သိန်း ကျော်နေပါက) Flat-rate pricing ကို ပြောင်းလဲ အသုံးပြုပါ။
+
+### Optimizing Storage
+- Data Retention
+	- BigQuery ထဲမှာ create လိုက်တဲ့ ဒေတာ table တွေကို အချိန် ဘယ်လို ကြာကြာ သိမ်းဆည်းမလဲ။ အဲဒီအတွက် Dataset create လုပ်တဲ့အဆင့်မှာ expired date ရွေးလို့ ရပါတယ်။
+	- အကယ်ရွေ့ ကိုယ့်ရဲ့ data table (သို့မဟုတ်) partition က ရက် ၉၀ အထိ လုံးဝ edit မပြုလုပ်တော့ဘူးဆိုရင်တော့ storage price ကို 50% လျှော့ချပေးပါတယ်။ 
+	- ဒါကြောင့် ဘယ်လို Activity တွေ (ဥပမာ - BigQuery ထဲကို loading , DML)
+- Storage Pricing - ![[Pasted image 20250304184125.png]]
+- GCP ရဲ့ မတူညီတဲ့ cloud services တွေထဲမှာ Data copies တွေ duplicates ဖြစ်နေတာကို လျှော့ချပါ။
+- Streaming inserts - what's that?? :D
+- Backup & Recovery
+	- ၇ ရက်အတွင်း ဒေတာတွေကို ပြန် read လို့ ရသေးတယ်။
+	- Use below query :
+```sql
+SELECT x,y
+FROM dataset.table
+FOR SYSTEM_TIME AS OF
+	TIMESTAMP_SUB(CURRENT_TIMESTAMP() , INTERVAL 3 DAY)
+```

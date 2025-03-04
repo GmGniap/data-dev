@@ -19,4 +19,6 @@ The folders in `/docs` appear as the main sections on the navigation bar.
 The notes appear as pages within these sections.
 
 ## Table of Contents
+- [Data Architecture](data_architecture/_index.md)
+- [Data Engineering](./data_engineering/_index.md)
 - [Airflow](data_engineering/Airflow.md)

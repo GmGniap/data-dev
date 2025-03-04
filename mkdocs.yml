@@ -3,8 +3,8 @@ site_description: Notes in Burmese about Data Engineering, Architecture, Analysi
 site_author: GmGniap
 site_url: https://gmgniap.github.io/data-dev/
 nav:
-  - Introduction: index.md
-  - dbt: dbt/index.md
+  - Introduction: _main_index.md
+  - Data Engineering: data_engineering/_index.md
 theme:
   name: "material"
   palette:

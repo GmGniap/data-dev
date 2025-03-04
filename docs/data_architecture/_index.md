@@ -1,0 +1,3 @@
+- [Intro to Data Architecture](./intro_to_data_architecture.md)
+- [Scaling](./scaling.md)
+- [Data Artifacts](./data_artifacts.md)
