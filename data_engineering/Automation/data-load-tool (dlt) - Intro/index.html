@@ -1,0 +1,542 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Notes in Burmese about Data Engineering, Architecture, Analysis and Visualization">
+      
+      
+        <meta name="author" content="GmGniap">
+      
+      
+        <link rel="canonical" href="https://gmgniap.github.io/data-dev/data_engineering/Automation/data-load-tool%20%28dlt%29%20-%20Intro/">
+      
+      
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
+    
+    
+      
+        <title>data load tool (dlt) Intro - DataPi</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-load-tool" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="DataPi" class="md-header__button md-logo" aria-label="DataPi" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DataPi
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              data load tool (dlt)   Intro
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="light-blue" data-md-color-accent="light-green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="DataPi" class="md-nav__button md-logo" aria-label="DataPi" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    DataPi
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../_main_index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Engineering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-load-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Load Tool ဆိုတာ ဘာလဲ။
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Load Tool ဆိုတာ ဘာလဲ။">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dlt-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      dlt Installation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dlt-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      dlt အခြေခံ concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="dlt အခြေခံ concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resource
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#source" class="md-nav__link">
+    <span class="md-ellipsis">
+      Source
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pipeline
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dlt" class="md-nav__link">
+    <span class="md-ellipsis">
+      dlt အလုပ်လုပ်ပုံ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-secrets-in-dlt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration &amp; Secrets in dlt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dlt-write-disposition-for-incremental-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      dlt Write Disposition for Incremental Loading
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ref-" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ref - ကိုးကားစာရင်း
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-dlt-introduction-by-cruxdataco-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      - dlt Introduction by Cruxdata.co - Link
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>data load tool (dlt)   Intro</h1>
+
+<p>2025 DE Zoomcamp curriculum ထဲမှာ ပါတဲ့ <code>dlt</code> အကြောင်းကို Study Group မှာ ဆွေးနွေးဖို့အတွက် လေ့လာရင်း မှတ်သားမိသမျှ စိတ်ဝင်စားစရာ အချက်အလက်တွေကို မျှဝေပေးချင်တာပါ။ <code>dlt</code> အကြောင်း စလေ့လာတဲ့ အချိန်မှာ ပထမဆုံး အံ့အားသင့်စရာက <a href="https://dlthub.com/docs/intro">Official Documentation</a> က အင်မတန် သပ်သပ်ရပ်ရပ် နဲ့ ရေးထားပြီး <a href="https://dlthub.com/blog">blog</a> တွေ ၊ Youtube videos တွေ ၊ dlt အကြောင်း talks တွေ စုံစုံလင်လင် ကို ရှိနေတာပါ။ open source library တစ်ခု ဖြစ်လို့ ဆိုတာထက် 2023 နှစ်စပိုင်းလောက်မှာမှ စတင်တဲ့ tool/library တစ်ခု အနေနဲ့ ဒီလောက် မြန်မြန်ဆန်ဆန် community အရရော ၊ content အရရော တိုးလာတာမျိုးကို ဆိုလိုတာပါ။ ဖတ်စရာ ၊ ကြည့်စရာတွေ များလွန်းတော့ ဒီ မိတ်ဆက်မှာတော့ အတတ်နိုင်ဆုံး အနှစ်ချုပ်ပြီး ရေးသားထားပါတယ်။</p>
+<h2 id="data-load-tool">Data Load Tool ဆိုတာ ဘာလဲ။<a class="headerlink" href="#data-load-tool" title="Permanent link">&para;</a></h2>
+<p>Data Field မှာ အလုပ်လုပ်နေတဲ့သူတွေအနေနဲ့ Data Pipelines (ETL / ELT) စသဖြင့် ရင်းနှီးပြီးသား ဖြစ်နိုင်ပေမယ့် အခုမှ စတင် လေ့လာမယ့်သူတွေ အနေနဲ့တော့ ဒီမေးခွန်းကို မေးချင်လိမ့်မယ် ထင်တယ်။ အလွယ်ကူဆုံး နဲ့ အမြင်သာဆုံး ဖြစ်အောင် နေ့စဥ် ဘဝမှာ မြင်နေရတဲ့ နမူနာ တစ်ခု နဲ့ ရှင်းပြချင်ပါတယ်။ ဥပမာ - စပါး ကနေ ဆန် ဖြစ်အောင် ပြုလုပ်ရတဲ့ အလုပ် တစ်ခု ဆိုပါစို့ ။ ယေဘုယျအားဖြင့်တော့ ဒီအလုပ်မှာ ပထမဆုံး စပါး စိုက်ရတယ် ။ ရိတ်သိမ်းရတယ်။ နေလှမ်း အခြောက်ခံရတယ်။ သိမ်းဆည်းရတယ်။ ကြိတ်စက်ကို ပို့ရတယ်။ ဆန်ကြိတ်ရတယ်။ စသဖြင့် ရှိမှာပေါ့လေ ။ </p>
+<p><illustration ပုံ ထည့်ရန် ></p>
+<p>ဒေတာ နဲ့ ပတ်သတ်ရင်လဲ အလားတူ အဆင့်ဆင့် ပြောင်းလဲ ၊ ရွေ့ပြောင်းရတဲ့ အဆင့်တွေ ရှိပါတယ်။ ပထမဆုံး Raw Data ကို စုဆောင်းရတယ်။ Data File Format မျိုးစုံ နဲ့ အဆင်ပြေသလို (စနစ် မကျနစွာနဲ့) သိမ်းဆည်းရတယ်။ ရရှိလာတဲ့ Data တွေအားလုံးကို Cleaning လုပ်ရတယ်။ ထွက်လာတဲ့ Cleaned Results - data တွေကို စနစ်တကျ Database System တွေထဲ (ဥပမာ - SQL / NoSQL database) ထပ် သိမ်းရပြန်တယ်။ ဒေတာတွေဆိုတာကလဲ သိမ်းရုံနဲ့ မပြီးဘူး ၊ သုံးနိုင်မှ အဖိုးတန်မှာ ဆိုတော့ ဒီ ဒေတာတွေကို စီးပွားရေးအမြင်ရ ၊ လုပ်ငန်းလိုအပ်ချက်အရ Transformation ပြောင်းလဲမှု တွေ ထပ်လုပ်ရပြန်တယ်။ ပြောင်းလဲမှုဆိုတာမှာ Machine Learning Analysis လုပ်တာတွေ Statistics အရ aggregation လုပ်တာတွေ စသဖြင့် မျိုးစုံ ဖြစ်နိုင်ပါတယ်။ </p>
+<p><illustration ပုံ ထည့်ရန်></p>
+<p>ဒီလို အဆင့်ဆင့် ပြောင်းလဲ ၊ ရွေ့ပြောင်းရမှုတွေကို Standardize ဖြစ်အောင် ETL / ELT pipelines စသဖြင့် ခေါ်ဝေါ် သတ်မှတ်လာပါတယ်။ ETL ကတော့ <strong>Extract</strong> (ဒေတာ အရင် ဆွဲထုတ်) -&gt; <strong>Transform</strong> (ဒေတာ ကို လိုသလို ပုံပြောင်း) -&gt; <strong>Load</strong> (ကိုယ် သိမ်းချင်တဲ့ Database System ထဲကို ထည့်သွင်း) တဲ့ pipeline ဖြစ်ပါတယ်။ ELT ကတော့ <strong>Extract</strong> -&gt; <strong>Load</strong> (ဒေတာကို Source System ကနေ တိုက်ရိုက်ယူပြီး အရင် သိမ်းဆည်း) -&gt; <strong>Transform</strong> (နောက်ဆုံးမှ ပြောင်းလဲ) တဲ့ pipeline ဖြစ်ပါတယ်။ ETL vs ELT အကြား ကွာခြားချက်တွေ အကြောင်း စိတ်ဝင်စားရင် အင်တာနက်မှာ အသေးစိတ် ထပ်မံ ရှာဖွေ ဖတ်ရှုစေချင်ပါတယ်။</p>
+<p>ဒီတော့ Data Load Tool (dlt) ကတော့ ELT pipeline အတွက် အဓိက ရည်ရွယ်ထားတဲ့ Python Library တစ်ခု ဖြစ်ပါတယ်။ Python Programming ပေါ် လုံးဝ အခြေခံထားတာ ဖြစ်တဲ့ အတွက် Python (နည်းနည်းပါးပါး) သိရုံနဲ့တင် <code>dlt</code> ကို အသုံးပြုပြီး production-level pipeline တစ်ခု တည်ဆောက်နိုင်ပါတယ်။</p>
+<p><code>dlt</code> နဲ့ ပတ်သတ်ပြီး မိတ်ဆက် အကြောင်းတွေ ထပ်သိလိုတယ် ဆိုရင် ဒီ Link / Video တွေကို ကြည့်ရှုဖို့ အကြံပြုလိုပါတယ်။
+- Link
+- EuroPython 2024 Presentation : "Pandas to Production" - Youtube</p>
+<h3 id="dlt-installation">dlt Installation<a class="headerlink" href="#dlt-installation" title="Permanent link">&para;</a></h3>
+<p><code>pip install dlt</code> </p>
+<h2 id="dlt-concepts">dlt အခြေခံ concepts<a class="headerlink" href="#dlt-concepts" title="Permanent link">&para;</a></h2>
+<p><code>dlt</code> မှာ အခြေခံအားဖြင့် အောက်ပါ concepts တွေ ကို နားလည်ဖို့ လိုအပ်ပါတယ်။
+- Source
+- Resource
+- Pipeline
+- Destination
+- Dataset
+<img title="dlt-concept by Cruxdata" alt="Credit to Cruxdata" src="https://img.plasmic.app/img-optimizer/v1/img?src=bab69d070db436dbd311dac286ed3eb0.png&f=webp&q=75" width="500" height="250" ></p>
+<ul>
+<li>Source ဆိုတာက ဆွဲထုတ်ယူမယ့် ဒေတာတွေအားလုံးကို ခြုံငုံတဲ့ Logical data group ဖြစ်ပါတယ်။ resources တွေကို ပေါင်းလိုက်ပြီး Source အနေနဲ့ အသုံးပြုတာပါ။</li>
+<li>Resource ဆိုတာကကျ database table တစ်ခုကနေ ဖြစ်ဖြစ် ၊ API endpoint တစ်ခုကနေ ဖြစ်ဖြစ် သီးခြား ဆွဲထုတ်ယူတဲ့ အဆင့် ကို ဆိုလိုတာပါ။</li>
+<li>Transformer ကကျတော့ ဒေတာကို သတ်မှတ်ထားတဲ့ destination ထဲ မထည့်ခင်မှာ ပြောင်းလဲလိုတာတွေ ပြောင်းလဲတဲ့ အဆင့် ပါ။</li>
+<li>Destination ကကျတော့ နောက်ဆုံးမှာ ဒေတာတွေကို အရောက်ပို့ရမယ့် နေရာ ပါပဲ။</li>
+<li>Pipeline ကတော့ ဒီ source / resource သတ်မှတ်တာတွေ ၊ transformation ပြောင်းလဲတာတွေ ၊ destination ထဲ ထည့်တာတွေ အားလုံးကို စုပေါင်းထားတဲ့ collection ကို ဆိုလိုပါတယ်။</li>
+</ul>
+<h3 id="resource">Resource<a class="headerlink" href="#resource" title="Permanent link">&para;</a></h3>
+<h3 id="source">Source<a class="headerlink" href="#source" title="Permanent link">&para;</a></h3>
+<h3 id="pipeline">Pipeline<a class="headerlink" href="#pipeline" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>pipeline</code> အတွက် <code>progress</code> argument ကို အသုံးပြုပြီး loading process ကို monitor ပြုလုပ်လို့ ရတယ်။ <a href="https://dlthub.com/docs/general-usage/pipeline#display-the-loading-progress">Ref</a></li>
+</ul>
+<h3 id="dlt">dlt အလုပ်လုပ်ပုံ<a class="headerlink" href="#dlt" title="Permanent link">&para;</a></h3>
+<p><code>dlt</code> အနေနဲ့  အဓိက အဆင့် ၃ ဆင့် ပါဝင်တယ်။
+- Extract
+- Normalize
+- Load</p>
+<h3 id="configuration-secrets-in-dlt">Configuration &amp; Secrets in dlt<a class="headerlink" href="#configuration-secrets-in-dlt" title="Permanent link">&para;</a></h3>
+<p><code>dlt</code> pipeline တွေမှာ များသောအားဖြင့် configurations နဲ့ credentials တွေ အသုံးပြုဖို့ လိုအပ်ပါတယ်။ ဒီအတွက်ကိုတော့ အောက်ပါ နည်းလမ်းတွေ အတိုင်း set up ပြုလုပ်လို့ ရပါတယ်။</p>
+<ol>
+<li>Environment variables များကို အသုံးပြုခြင်း။ (production တွင် အသုံးပြုသင့်သည်)</li>
+<li><code>dlt</code> configuration files တွေ ဖြစ်တဲ့ <code>secrets.toml</code> နဲ့ <code>config.toml</code> တို့ကို အသုံးပြုခြင်း။ (local dev တွင် အသုံးပြုသင့်သည်)</li>
+<li>Key managers နဲ့ Vaults များကို အသုံးပြုခြင်း။</li>
+</ol>
+<p>ကိုယ်ကသာ naming conventions ကို မှန်မှန်ကန်ကန် ပေးထားမယ်ဆိုရင် <code>dlt</code> အနေနဲ့ configuration settings နဲ့ secrets တွေကို အလိုအလျောက် ရယူပါလိမ့်မယ်။ ပြီးတော့ code ထဲက လိုအပ်တဲ့ နေရာတွေကို values တွေ အဖြစ် ထည့်သွင်းသွားပါမှာ။</p>
+<p><code>dlt.secrets.value</code> ကို အသုံးပြုပြီးတော့လဲ resources နဲ့ sources တွေအတွက် credentials သတ်မှတ်ပေးလို့ ရပါတယ်။ (Variable Assign ချတဲ့ ပုံစံမျိုးပါ)။ ဒီမှာ အရေးကြီးတာ တစ်ခုက အတတ်နိုင်ဆုံး configurations တွေ credentials တွေ အားလုံးကို <code>dlt.secrets</code> (တနည်းအားဖြင့် <code>secrets.toml</code>) ထဲမှာ ထည့်သွင်းရပါမယ်။ <code>dlt.config</code> (တနည်းအားဖြင့် <code>config.toml</code>)မှာ credentials တွေ ထည့်သွင်းလို့ ရမှာ မဟုတ်ပါဘူး။ <code>dlt</code> အနေနဲ့က အဲဒီ <code>config.toml</code> file ကနေ credentials တွေ ဖတ်မှာ မဟုတ်လို့ပါ။ </p>
+<h3 id="dlt-write-disposition-for-incremental-loading">dlt Write Disposition for Incremental Loading<a class="headerlink" href="#dlt-write-disposition-for-incremental-loading" title="Permanent link">&para;</a></h3>
+<p>Write Disposition ဆိုတာက ကိုယ် သိမ်းချင်တဲ့ နေရာ destination မှာ ဒေတာတွေကို ဘယ်လိုပုံစံမျိုး သိမ်းမလဲ (write) ဆိုတာကို <code>dlt</code> library အနေနဲ့ သတ်မှတ်ရတာမျိုးကို ဆိုလိုပါတယ်။ <code>dlt</code> မှာ အဓိက Write Disposition ၃ ခု ရှိပါတယ်။</p>
+<ol>
+<li>Append - <strong>default</strong> disposition ဖြစ်ပါတယ်။ Destination မှာ ရှိနေပြီးသား ဒေတာတွေထဲကို ဒေတာအသစ်တွေ ထပ်ပေါင်းထည့်သွားမှာပါ။</li>
+<li>Full Load (or) Replace - Destination မှာ ရှိနေပြီးသား ဒေတာတွေကို Resource က လာမယ့် ဒေတာတွေနဲ့ အစားထိုး (replace) ပြုလုပ်မှာပါ။ ရှိပြီးသား ဒေတာတွေအားလုံးကို <strong>delete</strong> ပြုလုပ်ပြီး schema ကို <strong>recreate</strong> အသစ် ပြုလုပ်မယ်။ ပြီးမှ ဒေတာတွေကို load ထည့်ပါမယ်။</li>
+<li>Merge - Destination မှာ ရှိနေပြီးသား ဒေတာတွေကို Resource ကနေ လာမယ့် ဒေတာတွေနဲ့ တူညီတဲ့ အပိုင်းတွေကို merge လုပ်မှာပါ။ ဒီအတွက် Resource မှာ <code>primary_key</code> ကို သတ်မှတ်ဖို့ လိုပါတယ်။</li>
+</ol>
+<p>အသုံးပြုသင့်တဲ့ Write Disposition ကို ဆုံးဖြတ်နိုင်ဖို့အတွက် ကိုယ့်ကိုယ်ကို ဒီမေးခွန်းကို အရင် မေးရပါလိမ့်မယ်။ "ကိုယ် အသုံးပြုမယ့် ဒေတာက stateful လား stateless လား" ဆိုတာပါ။ Stateful ဆိုတာတော့ တစ်ခုနဲ့ တစ်ခု order of occurance ဆက်စပ်ပြီး ပြောင်းလဲလွယ်တဲ့ အခြေအနေကို ဆိုလိုပါတယ်။ ဥပမာ - Taxi App ငှားစီးတဲ့ အခြေအနေမှာ "booked" ကနေ "cancelled" ပြောင်းသွားတာမျိုး ။ Stateless ဆိုတာကတော့ ပြောင်းပြန် (ဒေတာတွေက order of occurance ပေါ် မူတည်ခြင်း မရှိပဲ) မပြောင်းလဲနိုင်တဲ့ အခြေအနေ - ဥပမာ - IoT sensor ကနေ သိမ်းဆည်းလိုက်တဲ့ logged events dataset မျိုး ကို ဆိုလိုပါတယ်။ အကျယ် ဖတ်ရန် - <a href="https://medium.com/@pradeeppaikateel/stateless-vs-stateful-data-engineering-8f96e0ab4fab">Link</a>, <a href="https://www.freecodecamp.org/news/stateful-vs-stateless-architectures-explained/">Link2</a></p>
+<h3 id="ref-">Ref - ကိုးကားစာရင်း<a class="headerlink" href="#ref-" title="Permanent link">&para;</a></h3>
+<h2 id="-dlt-introduction-by-cruxdataco-link">- dlt Introduction by Cruxdata.co - <a href="https://cruxdata.co/blog/data_load_tool_dlt_introduction">Link</a><a class="headerlink" href="#-dlt-introduction-by-cruxdataco-link" title="Permanent link">&para;</a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["search.highlight", "navigation.sections"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

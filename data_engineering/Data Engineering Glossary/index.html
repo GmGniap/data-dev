@@ -1,0 +1,698 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Notes in Burmese about Data Engineering, Architecture, Analysis and Visualization">
+      
+      
+        <meta name="author" content="GmGniap">
+      
+      
+        <link rel="canonical" href="https://gmgniap.github.io/data-dev/data_engineering/Data%20Engineering%20Glossary/">
+      
+      
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
+    
+    
+      
+        <title>Data Engineering Glossary - DataPi</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DataPi" class="md-header__button md-logo" aria-label="DataPi" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DataPi
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data Engineering Glossary
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="light-blue" data-md-color-accent="light-green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DataPi" class="md-nav__button md-logo" aria-label="DataPi" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    DataPi
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_main_index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Engineering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Data Engineering Glossary</h1>
+
+<ul>
+<li>ETL - Extract, Transform, Load</li>
+<li>Conformed Dimensions</li>
+<li>Conformed Facts</li>
+<li>Data Anomalies<ul>
+<li>outliers (or) exceptions လို့လဲ သုံးနှုန်းကြပါတယ်။</li>
+<li>Database ထဲမှာ သိမ်းထားတဲ့ ဒေတာတွေ အကြား style အရ ၊ type အရ (သို့) formatting အရ မတူညီ ခြားနားမှုတွေကို ဆိုလိုတာပါ။</li>
+<li>ဒါတွေက Data Ingestion လုပ်တဲ့အချိန်နဲ့ Data Update လုပ်တဲ့အချိန်မှာ အရေးကြီးပါတယ်။</li>
+<li>မတိကျတဲ့ ၊ မှားယွင်းနေတဲ့ ဒေတာ (သို့) reporting မဖြစ်ရအောင် Anomalies တွေကို သေသေချာချာ စီစစ်ဖို့ လိုပါတယ်။</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>ACID</th>
+<th>Database properties includes Atomicity, Consistency, Isolation, Durability designed on the foundations of relational algebra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CRUD</td>
+<td>Create, Retrieve, Update, and Delete for transactional data management systems</td>
+</tr>
+<tr>
+<td>Data Architecture</td>
+<td>It is a discipline of rules, policies, and models that define what data to collect, how to use it, where to store it, and how to integrate distributed and heterogeneous systems separated in silos</td>
+</tr>
+<tr>
+<td>Data artifacts</td>
+<td>Data Dictionary, Data Model, Data Flows, Data Stewardship, Dimensional Model, Data Sharing Agreement</td>
+</tr>
+<tr>
+<td>Data dictionary</td>
+<td>A data dictionary contains information (metadata) about the elements, names, attributes, and definition related to the data in a database</td>
+</tr>
+<tr>
+<td>Data flow diagram</td>
+<td>Represent a flow of data through a subcomponent of, or the entirety of, a process or a system.</td>
+</tr>
+<tr>
+<td>Data tuple</td>
+<td>Related data elements such as a record in a database</td>
+</tr>
+<tr>
+<td>DDL</td>
+<td>Data Definition Language, such as creating database objects</td>
+</tr>
+<tr>
+<td>Dimension table</td>
+<td>table that is descriptive key information, which contains nontransactional data used in OLAP system</td>
+</tr>
+<tr>
+<td>Dimensional modeling</td>
+<td>Using star schema or snowflake schemas, create a relationship among dimension and fact tables</td>
+</tr>
+<tr>
+<td>Logical models</td>
+<td>Represent business concepts within a relationship diagram</td>
+</tr>
+<tr>
+<td>Meta database</td>
+<td>At the highest of levels, it is a database model for metadata management.</td>
+</tr>
+<tr>
+<td>Metadata</td>
+<td>Data about data. Information related to the contents, format, location, size, etc</td>
+</tr>
+<tr>
+<td>OLAP</td>
+<td>Online Analytical Processing used for understanding the patterns</td>
+</tr>
+<tr>
+<td>OLTP</td>
+<td>Online Transaction Processing built on sound relational database systems</td>
+</tr>
+<tr>
+<td>Reporting</td>
+<td>Accessing and querying the data to find insights, trends, analysis, and other information</td>
+</tr>
+<tr>
+<td>Row-based storage</td>
+<td>The entire ROW of data is stored as one chunk. The first column of a given row will be next to the last column of the previous row</td>
+</tr>
+<tr>
+<td>Silo</td>
+<td>physical or logical separation of data without any relationship with other data sets</td>
+</tr>
+<tr>
+<td>Single Version of Truth</td>
+<td>Some business terms and rules have multiple meanings when there is a data dictionary. With a standard dictionary, business vocabulary can have a single version, hence data can have a single version, no matter who looks at it.</td>
+</tr>
+<tr>
+<td>Stewardship</td>
+<td>Accountability and responsibility for data assets and processes that ensure effective control and access.</td>
+</tr>
+<tr>
+<td>Tribal knowledge</td>
+<td>Undocumented information or knowledge that is known to people, who are experienced doing a particular task with any written documentation</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Ad Hoc loading</th>
+<th>In emergency situations, when automation is not available, use this technique</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bulk Ingestion</td>
+<td>Ingesting large amounts of data at intervals</td>
+</tr>
+<tr>
+<td>Business Rules</td>
+<td>Rules that are in place to manage access, ingestion, reporting, and updating of data</td>
+</tr>
+<tr>
+<td>Continuous ingestion</td>
+<td>Ingesting data in an ongoing manner, such as in real-time</td>
+</tr>
+<tr>
+<td>Ingestion</td>
+<td>Absorbing the incoming data at any speed at any volume</td>
+</tr>
+<tr>
+<td>Metadata Schema</td>
+<td>Data about data. Describes tables, columns, and business rules of all schemas</td>
+</tr>
+<tr>
+<td>One Source Once Schema</td>
+<td>In the staging area, it is easy to manage with one scheme for one source system.</td>
+</tr>
+<tr>
+<td>Pull</td>
+<td>In batch processing systems, data is being pulled on scheduled times</td>
+</tr>
+<tr>
+<td>Push</td>
+<td>In real-time streaming systems, data being pushed to downstream systems as and when it is available.</td>
+</tr>
+<tr>
+<td>Schema</td>
+<td>Logically group of tables, views, functions, stored procedures, and security roles</td>
+</tr>
+<tr>
+<td>Separation of Concerns</td>
+<td>Divide and conquer makes us think and solve data problems in a smaller context</td>
+</tr>
+<tr>
+<td>Staging</td>
+<td>An intermediate storage area before transforming and cleansing of data</td>
+</tr>
+<tr>
+<td>Yottabyte</td>
+<td>1000 Zettabytes</td>
+</tr>
+<tr>
+<td>Zettabyte</td>
+<td>1000 exabytes</td>
+</tr>
+<tr>
+<td>4V</td>
+<td>The main characteristics that define Big Data. Velocity. Veracity. Volume.Velocity. Having any of these qualifies data as Big Data</td>
+</tr>
+<tr>
+<td>Airflow</td>
+<td>Orchestration and workflow tool</td>
+</tr>
+<tr>
+<td>Ambari</td>
+<td>Software tool for cluster provisioning, managing, and monitoring</td>
+</tr>
+<tr>
+<td>Atlas</td>
+<td>Governance tool that is a scalable and extensible set of core foundational governance services – enabling enterprises to effectively and efficiently meet their compliance requirements within Hadoop and allows integration with the whole enterprise data ecosystem.</td>
+</tr>
+<tr>
+<td>BIg Data</td>
+<td>It is a field that analyzes and systematically extracts information from very large, complex data sets.</td>
+</tr>
+<tr>
+<td>BigInsights</td>
+<td>IBM software platform for discovering, analyzing, and visualizing data from disparate sources.</td>
+</tr>
+<tr>
+<td>Cloudera</td>
+<td>Enterprse Cloud Data Platform</td>
+</tr>
+<tr>
+<td>Cluster</td>
+<td>Servers connected logically so that they act as one.</td>
+</tr>
+<tr>
+<td>Commodity hardware</td>
+<td>Hardware which is easily available in general market, and whos components can be easily replaced.</td>
+</tr>
+<tr>
+<td>DataBricks</td>
+<td>Enterprse Cloud Data Analytics and A.I.</td>
+</tr>
+<tr>
+<td>Dataproc</td>
+<td>Hadoop in Google Cloud Plaform</td>
+</tr>
+<tr>
+<td>DataStax</td>
+<td>NoSQL Database Built on Apache Cassandra</td>
+</tr>
+<tr>
+<td>EMR</td>
+<td>Enterprse Cloud Data Platform by amazon</td>
+</tr>
+<tr>
+<td>Flume</td>
+<td>Ingestion tool used to Ingest log data into Hadoop</td>
+</tr>
+<tr>
+<td>Hadoop</td>
+<td>The Apache Hadoop software library is a framework that allows for the distributed processing of large data sets across clusters of computers using simple programming models.</td>
+</tr>
+<tr>
+<td>Hbase</td>
+<td>A distributed scaleable NoSQL database on Hadoop. It is modeled Google's Big Table</td>
+</tr>
+<tr>
+<td>HDFS</td>
+<td>Haddop Distributed File System used to store data across distributed servers</td>
+</tr>
+<tr>
+<td>Hive</td>
+<td>Processing tool used to query hadoop data with SQL</td>
+</tr>
+<tr>
+<td>Horizontal Scaling</td>
+<td>Traditional method of scaling where hardware is physically upgraded, components swappd out or added to accomodate increase demands</td>
+</tr>
+<tr>
+<td>Ingestion layer</td>
+<td>Tools to ingest data from one system to Big Data cluster</td>
+</tr>
+<tr>
+<td>Kafka</td>
+<td>Ingestnio tool used to Ingest real time data to Hadoop Cluster</td>
+</tr>
+<tr>
+<td>Knox</td>
+<td>Security tool for providing proxy, client DSL/SDK, adn authentication services</td>
+</tr>
+<tr>
+<td>MapReduce</td>
+<td>Processing tool used for processing and generating big data sets with a parallel, distributed algorithm on a cluster.</td>
+</tr>
+<tr>
+<td>Node</td>
+<td>a computing device on a network</td>
+</tr>
+<tr>
+<td>Pivotal</td>
+<td>Big Data Suite (BDS) is a platform of open data management solutions</td>
+</tr>
+<tr>
+<td>Processing Layer</td>
+<td>Tools to process these large amount of data efficiently</td>
+</tr>
+<tr>
+<td>Ranger</td>
+<td>Security tool for centralized administration</td>
+</tr>
+<tr>
+<td>Security Layer</td>
+<td>Governance and operations layer to secure and administer the data easily</td>
+</tr>
+<tr>
+<td>Spark</td>
+<td>Processing tool used for fast, unified data processing on Hadoop. Includes Spark SQL+DataFrames, Streaming, MLlib, Graphx, SparkCore API (R, SQL, Python, Scala, Java)</td>
+</tr>
+<tr>
+<td>SQL</td>
+<td>Structured Query Language for managing relationable databases</td>
+</tr>
+<tr>
+<td>Sqoop</td>
+<td>Ingestion tool used to trasnfer data between sources</td>
+</tr>
+<tr>
+<td>Storage layer</td>
+<td>Tools to help store data on a cluster of nodes</td>
+</tr>
+<tr>
+<td>Variety</td>
+<td>Data in many forms</td>
+</tr>
+<tr>
+<td>Velocity</td>
+<td>Data in motion</td>
+</tr>
+<tr>
+<td>Veracity</td>
+<td>Data in doubt</td>
+</tr>
+<tr>
+<td>Vertical Scaling</td>
+<td>Scale the system by upgrading to a new machine with larger hardware, software specs or add more capacity in existing single node machine</td>
+</tr>
+<tr>
+<td>Volume</td>
+<td>Data at rest</td>
+</tr>
+<tr>
+<td>YARN</td>
+<td>(Y)et (A)nother (R)esource (N)egotiator used for cluster management</td>
+</tr>
+<tr>
+<td>ZooKeeper</td>
+<td>Eenables highly reliable distributed coordination. You can use it off-the-shelf to implement consensus, group management, leader election, and presence protocols. And you can build on it for your own, specific needs.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ODS</strong>: An Operational Data Store is a centralized database that provides a current/recent "snapshot" of the data from all ingested transactional systems. It is especially used for operational reporting. It allows organizations to combine data from the original format, even if different, from various external and internal sources into a single centralized location, which provides access for business reporting.</p>
+<p><strong>Data dictionary</strong>: Table(s) of names, definitions, characteristics, and attributes about all data elements that are being ingested or used in a database,</p>
+<p><strong>Data flow</strong>: Shows the transfer(flow) of information from one system to another system. Could also be between components of the same system.</p>
+<p>Metadata: "Data about data." Data and descriptions about data that provide meaningful information about all data in a system. It is used to summarize the source, descriptions, use, and any other information about data.</p>
+<p><strong>Normalization</strong>: "Organizing data in a database." This can include creating tables with relationships between those tables based on encoded rules. These rules protect data and eliminate(reduce) redundancy and inconsistency.</p>
+<p><strong>Data anomaly:</strong> Inconsistencies in the data stored in a database. These are especially important on the initial data ingestion and during updates. Anomalies must be addressed to avoid inconsistency or incorrect data or reporting.</p>
+<p><strong>Ad-hoc</strong> SQL custom queries Queries that are created on the fly to obtain very specific data by combining multiple tables of data into one (usually large) query. Can we one-time usage.</p>
+<p><strong>Historical data lineage:</strong> Information that includes data (source)origin, what happens to it during ingestion or upstream conversions or transformations., and finally where it moves over time as part of the system. It is metadata. S<strong>standard</strong> queries: Common queries that are typically used over and over.</p>
+<p><strong>Bulk loading:</strong> The act of loading large amounts of (usually transactional) data into a database in a short period of time, in many cases by inserting rows one at a time.</p>
+<p><strong>Ingestion</strong>: The process of bringing data from another source into a new location, either internally or externally. This can be at the initial data upload or ongoing updates.</p>
+<p>Use a <strong>calculated column</strong> when you want to evaluate each single row</p>
+<p>Use a <strong>measure</strong> when you want to aggregate multiple rows of data</p>
+<ul>
+<li><strong>Master Data</strong>: Business-critical data that is shared across the enterprise.</li>
+<li><strong>Golden Record</strong>: Single unified version of the data.</li>
+<li><strong>MDM System</strong>: Stands for Master Data Management system. A technology solution used to create and maintain a golden record.</li>
+<li><strong>Master Data Hub</strong>: Also called Master Data Repository. A central database that stores golden records for different master data entities.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.highlight", "navigation.sections"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

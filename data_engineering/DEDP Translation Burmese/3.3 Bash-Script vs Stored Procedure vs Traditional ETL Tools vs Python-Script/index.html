@@ -1,0 +1,547 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Notes in Burmese about Data Engineering, Architecture, Analysis and Visualization">
+      
+      
+        <meta name="author" content="GmGniap">
+      
+      
+        <link rel="canonical" href="https://gmgniap.github.io/data-dev/data_engineering/DEDP%20Translation%20Burmese/3.3%20Bash-Script%20vs%20Stored%20Procedure%20vs%20Traditional%20ETL%20Tools%20vs%20Python-Script/">
+      
+      
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
+    
+    
+      
+        <title>3.3 Bash Script vs Stored Procedure vs Traditional ETL Tools vs Python Script - DataPi</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bash-script-and-cron" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="DataPi" class="md-header__button md-logo" aria-label="DataPi" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DataPi
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3.3 Bash Script vs Stored Procedure vs Traditional ETL Tools vs Python Script
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="light-blue" data-md-color-accent="light-green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="DataPi" class="md-nav__button md-logo" aria-label="DataPi" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    DataPi
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../_main_index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Engineering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bash-script-and-cron" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bash Script and Cron
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bash-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bash နဲ့ Shell အကြား ခြားနားချက်
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bash နဲ့ Shell အကြား ခြားနားချက်">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complex-bash-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complex Bash Script ဥပမာ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Components
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#history-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      အချိန်ကာလအလိုက် ပြောင်းလဲလာမှု (History &amp; Evolution)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>3.3 Bash Script vs Stored Procedure vs Traditional ETL Tools vs Python Script</h1>
+
+<blockquote>
+<p>Data Engineering Design Patterns စာအုပ်မှ <a href="https://dedp.online/part-2/4-ce/bash-stored-procedure-etl-python-script.html">အခန်းတစ်ခန်း </a>ကို မှီးငြမ်း ဘာသာပြန်ဆိုထားပါသည်။</p>
+</blockquote>
+<p>Data နဲ့ ပတ်သတ်လို့ Orchestrator (ဒေတာ သံစုံတီးဝိုင်းလို့ မြန်မာမှု ပြုလို့ရမယ်) အကြောင်း ပြောမယ်ဆိုရင် နည်းပညာ ခက်ခဲ ရှုပ်ထွေးတယ်လို့ မြင်ကြပါတယ်။ Cron ဆိုတာဘာလဲ ၊  Python Script က ဘာအတွက် သုံးတာလဲ ၊ Bash Script ဆိုတာ ဘယ်လိုမျိုးလဲ ၊ အစောပိုင်းတွေ အသုံးချခဲ့တဲ့ Stored Procedure (SSIS) ဆိုတာ ဘာလဲ စသဖြင့် မေးခွန်းပေါင်းစုံ ရှိလာနိုင်ပါတယ်။ ဒီ ဆောင်းပါးမှာတော့ ဒေတာနဲ့ ပတ်သတ်တဲ့ tasks တွေကို orchestrate (သံစုံ တီးဝိုင်းလိုမျိုး စနစ်တကျ စီမံခန့်ခွဲပေးနိုင်တဲ့) ယေဘုယျနည်းလမ်းတွေ အကြောင်း ဆွေးနွေးသွားမှာ ဖြစ်ပါတယ်။ </p>
+<pre class="mermaid"><code>gantt
+    title Evolution of Orchestration
+    dateFormat  YYYY-MM-DD
+    axisFormat %Y
+
+    section Bash scripts and Cron
+    Shell (Unix/CLIs) :cron, 1960-01-01, 365d
+    Widespread Adoption of Cron :cron, 1975-01-01, 365d
+    Introduction of Bash Scripting :bash, 1989-06-08, 365d
+
+    section Stored Procedure
+    Early Stored Procedures :sp_early, 1974-01-01, 365d
+    Stored Procedures in SQL Databases :sp_sql, 1986-01-01, 365d
+    Stored Procedures in Oracle :sp_sql, 1991-01-01, 365d
+
+    section Traditional ETL Tools
+    Data Transformation Services (DTS) :dts, 1998-01-01, 365d
+    Oracle Warehouse Builder (OWB) :owb, 2003-01-01, 365d
+    Informatica PowerCenter :informatica, 2004-01-01, 365d
+    SSIS :ssis, 2005-01-01, 365d
+
+    section Python Scripts and Frameworks
+    Python Language Creation :py_creation, 1989-02-20, 365d
+    The Rise of Python (NumPy, SciPy, Pandas) :milestone, 2000-01-01, 5110d
+    Luigi, Oozie, Azkaban :luigi, 2011-01-01, 365d
+    %section Modern Orchestration
+    Airflow :py_complex, 2015-01-01, 365d
+    Temporal (microservice) :temp, 2016-01-01, 365d
+    Dagster (data-aware) :py_complex, 2018-01-01, 365d
+    Kestra (YAML) :kestra, 2019-01-01,365d
+    Mage.ai (notebook-style) :py_complex, 2022-01-01, 365d</code></pre>
+<h3 id="bash-script-and-cron">Bash Script and Cron<a class="headerlink" href="#bash-script-and-cron" title="Permanent link">&para;</a></h3>
+<p>Bash script ကတော့ ရှေးဦးပိုင်း orchestration version လို့ ပြောလို့ ရပါတယ်။ မိမိ လုပ်ဆောင်လိုတဲ့ task (သို့မဟုတ်) transformation တွေအတွက် သက်ဆိုင်တဲ့ အရာအားလုံးကို စုစည်းပေးနိုင်ပါတယ်။ File တစ်ခု ကို ဖွင့်လိုက်ပြီး filename ကို <code>.sh</code> extension နဲ့ သိမ်းလိုက်မယ်။ ပြီးတော့ file အတွင်း ပထမဆုံး စာကြောင်း အနေနဲ့ <code>#!/bin/bash</code> (သို့) အခြားကြိုက်နှစ်သက်ရာ shell အမျိုးအစားကို ရေးသားလိုက်ပြီးပြီဆိုရင် သင့်အနေနဲ့ စတင်ဖို့ ready ဖြစ်ပါပြီ။</p>
+<p>Bash script တွေနဲ့အတူ တွဲသုံးလေ့ ရှိတာကတော့ Cron နဲ့ ၎င်းရဲ့ cron jobs တွေ ဖြစ်ပါတယ်။ Unix system မှာ လုပ်ဆောင်ချက်တစ်ခုကို schedule ပြုလုပ်ဖို့အတွက် command  (သို့) script တစ်ခုထဲမှာ ရိုးရိုးရှင်းရှင်းပဲ ထည့်သုံးလို့ ရပါတယ်။ ဥပမာ - <code>0 8 * * *</code> ဆိုတဲ့ cron expression တစ်ခုက မိမိ လုပ်ဆောင်လိုတဲ့ job တစ်ခုကို နေ့စဥ် မနက် ၈ နာရီမှာ run ဖို့အတွက် schedule ပြုလုပ်ရာမှာ အသုံးပြုတာ ဖြစ်တယ်။ </p>
+<h3 id="bash-shell">Bash နဲ့ Shell အကြား ခြားနားချက်<a class="headerlink" href="#bash-shell" title="Permanent link">&para;</a></h3>
+<p>Shell scripts တွေက Operating System တစ်ခုရဲ့ command-line interpreter (သို့) shell တစ်ခုအတွက် ရေးသားတဲ့ script တွေ ဖြစ်ပါတယ်။ Shell script က ပိုပြီး ယေဘုယျဆန်ပြီး ရေးထားတဲ့ script တွေကို နှစ်သက်ရာ shell (ဥပမာ - sh, csh, ksh, စသဖြင့်) မှာ အသုံးချနိုင်ပါတယ်။</p>
+<p>Bash (အရှည်ကောက် - Bourne Again SHell) scripts တွေကတော့ original shell ထက် ပိုပြီး feature တွေ စုံအောင် ပြုပြင်ထားတဲ့ Bash shell အတွက် ရေးသားတာပါ။ Bash မှာ အခြေခံ shell scripts တွေထက် ပိုပြီး standard ကျတဲ့ variable handling တွေ ၊ သင်္ချာလုပ်ဆောင်ပုံတွေ စသဖြင့် အဆင့်မြင့်တင်ထားတာတွေ ပါဝင်ပါတယ်။</p>
+<h4 id="complex-bash-script">Complex Bash Script ဥပမာ<a class="headerlink" href="#complex-bash-script" title="Permanent link">&para;</a></h4>
+<p>ဒီ script က အဓိကအားဖြင့် database environment တစ်ခုအတွင်းက files တွေကို ကိုင်တွယ်ဖို့အတွက် ရေးသားထားတာပါ။</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># Initialize variables</span>
+<span class="nv">application</span><span class="o">=</span><span class="s1">&#39;DEFAULT_APP&#39;</span>
+<span class="nv">job_status</span><span class="o">=</span><span class="s1">&#39;OK&#39;</span>
+
+<span class="c1"># Parse arguments</span>
+<span class="k">for</span><span class="w"> </span>arg<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nv">key</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$arg</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="o">=</span><span class="w"> </span>-f1<span class="k">)</span>
+<span class="w">  </span><span class="nv">value</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$arg</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="o">=</span><span class="w"> </span>-f2<span class="k">)</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nv">$key</span><span class="w"> </span><span class="k">in</span>
+<span class="w">    </span>GRP<span class="o">)</span><span class="w"> </span><span class="nv">ascii_group</span><span class="o">=</span><span class="nv">$value</span><span class="w"> </span><span class="p">;;</span>
+<span class="w">    </span>DAT<span class="o">)</span><span class="w"> </span><span class="nv">date</span><span class="o">=</span><span class="nv">$value</span><span class="w"> </span><span class="p">;;</span>
+<span class="w">    </span>SYS<span class="o">)</span><span class="w"> </span><span class="nv">system</span><span class="o">=</span><span class="nv">$value</span><span class="w"> </span><span class="p">;;</span>
+<span class="w">    </span>SRV<span class="o">)</span><span class="w"> </span><span class="nv">server</span><span class="o">=</span><span class="nv">$value</span><span class="w"> </span><span class="p">;;</span>
+<span class="w">    </span>APP<span class="o">)</span><span class="w"> </span><span class="nv">application</span><span class="o">=</span><span class="nv">$value</span><span class="w"> </span><span class="p">;;</span>
+<span class="w">  </span><span class="k">esac</span>
+<span class="k">done</span>
+
+<span class="c1"># Check mandatory parameter (Group)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ascii_group</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Error: Group parameter is missing.&quot;</span>
+<span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="c1"># Database Interaction (Simplified)</span>
+<span class="c1"># Assuming a function `query_database` exists for database interaction</span>
+<span class="nv">work_date</span><span class="o">=</span><span class="k">$(</span>query_database<span class="w"> </span><span class="s2">&quot;SELECT TO_CHAR(work_date, &#39;YYMMDD&#39;) FROM system_table;&quot;</span><span class="k">)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Database query failed.&quot;</span>
+<span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+<span class="nv">date</span><span class="o">=</span><span class="si">${</span><span class="nv">date</span><span class="k">:-</span><span class="nv">$work_date</span><span class="si">}</span>
+
+<span class="c1"># Processing ASCII files (Simplified)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Processing started with the following parameters:&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot; - Group:   </span><span class="nv">$ascii_group</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot; - Date:    </span><span class="nv">$date</span><span class="s2">&quot;</span>
+<span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$system</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot; - System:  </span><span class="nv">$system</span><span class="s2">&quot;</span>
+<span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$server</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot; - Server:  </span><span class="nv">$server</span><span class="s2">&quot;</span>
+<span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$application</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot; - App:     </span><span class="nv">$application</span><span class="s2">&quot;</span>
+
+<span class="c1"># Retrieving ASCII files (Example query)</span>
+<span class="nv">ascii_files</span><span class="o">=</span><span class="k">$(</span>query_database<span class="w"> </span><span class="s2">&quot;SELECT file_name FROM ascii_files WHERE group_name = &#39;</span><span class="nv">$ascii_group</span><span class="s2">&#39;;&quot;</span><span class="k">)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Error retrieving ASCII files.&quot;</span>
+<span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="c1"># Process each ASCII file</span>
+<span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$ascii_files</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Processing file: </span><span class="nv">$file</span><span class="s2">&quot;</span>
+<span class="w">  </span><span class="c1"># File processing logic goes here (e.g., compression, moving, SQL execution)</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Processing completed.&quot;</span>
+
+<span class="c1"># Finalization</span>
+<span class="c1"># Additional cleanup or final steps can be added here</span>
+</code></pre></div>
+<h4 id="key-components">Key Components<a class="headerlink" href="#key-components" title="Permanent link">&para;</a></h4>
+<p>အပေါ်က script ရဲ့ လုပ်ဆောင်ချက် နဲ့ ကန့်သတ်ချက်တွေကို အောက်ပါအတိုင်း အနှစ်ချုပ်လို့ ရနိုင်ပါတယ်။</p>
+<ol>
+<li>Initialisation - script ကို မှန်ကန်စွာ ခေါ်ဆို အသုံးပြုခြင်း နဲ့ env variables များ set up ပြုလုပ်ခြင်း ကို  စစ်ဆေးခြင်း။</li>
+<li>Parameter Validation : 1. Parsing argument and processes command-line arguments to set various parameters. Ensures the essential parameters are provided. If not, it logs an error and exits.</li>
+<li>. <strong>Database Interaction</strong>: Connecting to a database using <code>sqlplus</code> and retrieving the work date. Checks for errors and exits if any issues are encountered.</li>
+<li>File processing:<ol>
+<li><strong>File Archiving and Preprocessing</strong>: Archives older versions of files and prepares new files for processing.</li>
+<li><strong>SQL Command Execution</strong>: Generates SQL commands to be executed for each file, handles its errors, and logs them if necessary.</li>
+<li><strong>Sub-process Execution</strong>: Executes generated SQL commands in sub-processes and waits for all sub-processes to finish before proceeding.</li>
+</ol>
+</li>
+<li><strong>Post-Processing Checks</strong>: Verifies the output of each sub-process for errors, concatenates parts of split files if needed, and handles disk space errors.</li>
+<li><strong>File Distribution</strong>: Prepares files for different hosts and executes another script for FTP distribution.</li>
+<li><strong>Finalization</strong>: Running another script for job completion tasks.</li>
+</ol>
+<p>ဒီ script ကို ကြည့်ရှုခြင်း အားဖြင့် အစဦးပိုင်းအချိန်တွေမှာ orchestration ကို မည်သို့ ပြုလုပ်ခဲ့သလဲဆိုတာ မြင်သာပါလိမ့်မယ်။ scheduling , parameter handling, database interaction, file processing နဲ့ error handling ကဲ့သို့ မတူညီတဲ့ task ပေါင်းစုံကို Script တစ်ခုထဲနဲ့ ကိုင်တွယ်သွားတာပါ။ ယခု နောက်ပိုင်း ထွက်ပေါ်လာတဲ့ ခေတ်သစ် orchestration tools တွေမှာတော့ ပိုမိုကောင်းမွန်ပြီး စွမ်းဆောင်ရည်ပြည့်ဝတဲ့ functions တွေ ပိုမို ပါဝင်လာပါပြီ။ </p>
+<h3 id="history-evolution">အချိန်ကာလအလိုက် ပြောင်းလဲလာမှု (History &amp; Evolution)<a class="headerlink" href="#history-evolution" title="Permanent link">&para;</a></h3>
+<p>Unix Operation System တွေရဲ့ အစောပိုင်း ကာလတွေမှာ သေးငယ်ပြီး မတူကွဲပြား များပြားလှတဲ့ libraries လေးတွေက ကွန်ပျူတာတစ်လုံးထဲမှာ စုထည့်ထားသလို ဖြစ်နေပါတယ်။ ဒီအတွက် အလုပ်လုပ်ဖို့ရာ ပိုမို ရှုပ်ထွေးလာပြီး tasks တွေကို workflow အဖြစ် စီမံခန့်ခွဲဖို့ နည်းလမ်းတွေ လိုအပ်လာပါတယ်။ Bash scripts တွေက ဒီပြဿနာ ကို ဖြေရှင်းဖို့ design ဆွဲခဲ့တာ မဟုတ်ပေမယ့် အဲဒီကာလမှာတော့ သူက လွဲပြီး သုံးစရာ မရှိခဲ့ပါဘူး။ </p>
+<p>Unix Operating System တွေ မွေးဖွားလာတဲ့ 1960 ခုနှစ် နဲ့ 1970 အစောပိုင်းကာလတွေမှာ ပထမဦးဆုံးသော Shell (Bourne shell <code>sh</code>) နဲ့ command-line interface (CLI) ကို စတင် မိတ်ဆက်ခဲ့ပါတယ်။ အဲဒီနောက်မှာ Bourne shell ကို ပိုမိုကောင်းမွန်အောင် ပြုပြင်ထားတဲ့ version ဖြစ်တဲ့ Bash (Bourne Again SHell) ကို 1989 မှာ မိတ်ဆက်ခဲ့ပြီး system administration နဲ့ task automation တွက် အသုံးများလာခဲ့ပါတယ်။ Bash အနေနဲ့ ပိုမိုကောင်းမွန်တဲ့ စွမ်းဆောင်ရည် နဲ့ ရိုးရှင်းမှုကို တပြိုင်နက် ထောက်ပံ့ပေးနိုင်ခဲ့ပါတယ်။ Scripting Language ကို Command-line utilities တွေနဲ့ တွဲသုံးခြင်းအားဖြင့် အရေးကြီးတဲ့ အလုပ်တွေကို ဖြေရှင်းဖို့အတွက် ဖြစ်နိုင်ချေများစွာကို ဖော်ထုတ်ပေးနိုင်ခဲ့ပါတယ်။</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["search.highlight", "navigation.sections"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>
