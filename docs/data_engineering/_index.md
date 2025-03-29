@@ -1,2 +1,0 @@
-- [Concepts](./concepts/_index.md)
-- [Data Governance](./data_governance/_index.md)

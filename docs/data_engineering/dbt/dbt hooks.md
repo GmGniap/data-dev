@@ -1,0 +1,7 @@
+- Hooks ဆိုတာက မတူညီတဲ့ အချိန်တွေမှာ execute လုပ်တဲ့ sql snippets တွေ ဖြစ်ပါတယ်။
+- dbt မှာ အရေးကြီးတဲ့ Hook **၄ မျိုး** ရှိပါတယ်။
+	- `pre-hook`: model (သို့) seed (သို့) snapshot ကို _မတည်ဆောက်မှီ_ executed လုပ်ပါတယ်။
+	- `post-hook`: model (သို့) seed (သို့) snapshot ကို _တည်ဆောက်အပြီးမှာ_  executed လုပ်ပါတယ်။
+	- `on-run-start`:  `dbt build`, `dbt compile`, `dbt docs generate`, `dbt run`, `dbt seed`, `dbt snapshot`, or `dbt test` command တွေမတိုင်ခင် _အစ_ မှာ executed လုပ်ပါတယ်။
+	- `on-run-end`:  `dbt build`, `dbt compile`, `dbt docs generate`, `dbt run`, `dbt seed`, `dbt snapshot`, or `dbt test` command တွေ run ပြီးတဲ့ _အဆုံး_ မှာ executed လုပ်ပါတယ်။
+- Official [Documentation](https://docs.getdbt.com/docs/build/hooks-operations#about-hooks)

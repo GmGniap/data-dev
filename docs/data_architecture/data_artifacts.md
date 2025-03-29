@@ -1,3 +1,4 @@
+### Data Artifacts ဆိုတာ ဘာလဲ။
 ကောင်းမွန်ပြည့်စုံတဲ့ Data Architecture strategy တစ်ခုကို တည်ဆောက်ဖို့အတွက် ==Artifacts== (နားလည်ရလွယ်အောင်ဆိုရင် "ကွန်ပျူတာ မှတ်တမ်းမှတ်ရာ ၊ စာရွက်စာတမ်း documents" ) လိုအပ်ပါတယ်။ အရေးကြီးတဲ့ Artifacts (ကွန်ပျူတာ မှတ်တမ်းမှတ်ရာ) တွေကတော့ အောက်ပါ အတိုင်း ဖြစ်ပါတယ်။
 - Data Dictionary
 - Enterprise Data Models

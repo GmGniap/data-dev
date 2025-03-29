@@ -1,1 +1,0 @@
-- [Metadata Managment](./metadata_management.md)

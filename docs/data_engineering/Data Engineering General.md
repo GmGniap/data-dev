@@ -4,23 +4,19 @@
 Data Engineer တစ်ယောက် ဖြစ်ဖို့အတွက် ဘယ်လို ဘာသာရပ် ၊ အကြောင်းအရာတွေကို နားလည် တက်ကျွမ်းထားဖို့ လိုမလဲဆိုတာကို အကြမ်းဖျဥ်း ဖော်ပြချင်ပါတယ်။
 
 ## Database Frameworks
-Data Engineer တစ်ယောက်အနေနဲ့ ကြီးမားတဲ့ ဒေတာ ပမာဏကို ကိုင်တွယ်ဖို့ ၊ Transactional အတွက်ဖြစ်စေ ၊ Analytical အတွက်ဖြစ်စေ လိုအပ်တဲ့ ဒေတာကို ထောက်ပံ့ပေးနိုင်ဖို့ Database Frameworks တွေမှာ expert ဖြစ်နေဖို့ လိုအပ်ပါတယ်။ ကြုံတွေ့ရမယ့် ဒေတာတွေက Structured , Semi-structured, Unstructured မျိုးစုံ ဖြစ်နိုင်တာမို့ SQL အပြင် NoSQL ပိုင်းကိုပါ သိထားရင် ပိုအဆင်ပြေပါတယ်။
-
-ယေဘုယျ အသုံးပြုရတဲ့ Tools တွေကတော့ MySQL , Postgresql, .... 
+- Data Engineer တစ်ယောက်အနေနဲ့ ကြီးမားတဲ့ ဒေတာ ပမာဏကို ကိုင်တွယ်ဖို့ ၊ Transactional အတွက်ဖြစ်စေ ၊ Analytical အတွက်ဖြစ်စေ လိုအပ်တဲ့ ဒေတာကို ထောက်ပံ့ပေးနိုင်ဖို့ Database Frameworks တွေမှာ expert ဖြစ်နေဖို့ လိုအပ်ပါတယ်။ ကြုံတွေ့ရမယ့် ဒေတာတွေက Structured , Semi-structured, Unstructured မျိုးစုံ ဖြစ်နိုင်တာမို့ SQL အပြင် NoSQL ပိုင်းကိုပါ သိထားရင် ပိုအဆင်ပြေပါတယ်။
+- ယေဘုယျ အသုံးပြုရတဲ့ Tools တွေကတော့ MySQL , Postgresql, MongoDB စသဖြင့် ရှိပါတယ်။
 
 ## Processing Frameworks
-ကြီးမားတဲ့ ဒေတာပမာဏ (Big Data) ကို ကိုင်တွယ်ရာမှာ ကြုံတွေ့ရမယ့် data cleaning/aggregation/clustering စတဲ့ လုပ်ငန်းတွေကို ဆောင်ရွက်ဖို့အတွက် Batch , Streaming processing frameworks တွေကို သိရှိထားဖို့ လိုအပ်ပါတယ်။ 
-
-ယေဘုယျ အသုံးပြုရတဲ့ Tools တွေကတော့ Spark , Hive, Flink နဲ့ Kafka တို့ ဖြစ်ကြပါတယ်။
+- ကြီးမားတဲ့ ဒေတာပမာဏ (Big Data) ကို ကိုင်တွယ်ရာမှာ ကြုံတွေ့ရမယ့် data cleaning/aggregation/clustering စတဲ့ လုပ်ငန်းတွေကို ဆောင်ရွက်ဖို့အတွက် Batch , Streaming processing frameworks တွေကို သိရှိထားဖို့ လိုအပ်ပါတယ်။ 
+- ယေဘုယျ အသုံးပြုရတဲ့ Tools တွေကတော့ Spark , Hive, Flink နဲ့ Kafka စသဖြင့် ရှိပါတယ်။
 
 ## Scheduling Frameworks
-Data Workflow တွေကို တည်ဆောက်ရာမှာ အသုံးပြုတဲ့ Scheduling (သို့) Automation frameworks တွေကိုလဲ နားလည်ထားဖို့ လိုအပ်ပါတယ်။
-ဥပမာ - Airflow , Github Action 
-
-
+- Data Workflow တွေကို တည်ဆောက်ရာမှာ အသုံးပြုတဲ့ Scheduling (သို့) Automation frameworks တွေကိုလဲ နားလည်ထားဖို့ လိုအပ်ပါတယ်။
+- ဥပမာ - [[Airflow]] , [[Intro to Github Actions|Github Actions]]
 
 ## How to be successful Data Engineer
-- သင်အနေဖြင့် လူအများနဲ့ ပြောဆို ဆက်ဆံနိုင်သူ လက်ရှိ မဖြစ်သေးလျှင်လဲ ဖြစ်အောင် ကြိုးစားပါ။
+- သင်အနေဖြင့် လူအများနဲ့ ပြောဆို ဆက်ဆံနိုင်သူ လက်ရှိ မဖြစ်သေးလျှင်လဲ ဖြစ်အောင် ကြိုးစားဖို့ လိုပါလိမ့်မယ်။ 
 - Business Units များအလိုက် အလုပ်လုပ်ကိုင်ပုံကို နားလည်အောင် ကြိုးစားပါ။
 - အမြဲတမ်း အသစ်ထွက်နေသော နည်းပညာများနှင့် ပတ်သတ်ပြီး အမြဲတစေ လေ့လာလိုသူ ဖြစ်ပါစေ။
 - Performance နဲ့ Scalability ကို ပိုမိုကောင်းမွန်အောင်  ပြုလုပ်နိုင်စွမ်း ရှိရပါမယ်။
